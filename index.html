@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的专属手机</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+  background:#e9e0e9;
+  color:#443b49;
+}
+.phone{
+  max-width:400px;
+  min-height:100vh;
+  margin:auto;
+  padding:25px 22px;
+  background:linear-gradient(155deg,#e6d9ef,#f8e5df,#dcebe8);
+}
+.status{
+  display:flex;
+  justify-content:space-between;
+  font-weight:bold;
+  margin-bottom:40px;
+}
+h1{font-size:32px;margin:12px 0}
+.date{font-size:13px;color:#7b6e80}
+.widget{
+  background:#ffffffa8;
+  padding:18px;
+  border-radius:23px;
+  margin:24px 0;
+  line-height:1.6;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+.app{
+  background:#ffffffa8;
+  border:0;
+  border-radius:20px;
+  padding:17px 5px;
+  color:inherit;
+  font-size:14px;
+  cursor:pointer;
+}
+.emoji{display:block;font-size:31px;margin-bottom:10px}
+#detail{
+  display:none;
+  margin-top:22px;
+  padding:18px;
+  border-radius:22px;
+  background:#ffffffbb;
+}
+.back{
+  border:0;
+  background:#eee3ef;
+  padding:10px 15px;
+  border-radius:12px;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status">
+    <span id="clock">9:41</span>
+    <span>● ● ▰</span>
+  </div>
+  <div class="date">MY LITTLE WORLD</div>
+  <h1>Good day ☁️</h1>
+
+  <div class="widget">
+    <strong>今天也要开心。</strong>
+    <p>欢迎来到我的小小世界。</p>
+    <p id="today"></p>
+  </div>
+
+  <div class="grid">
+    <button class="app" onclick="show('聊天','今天过得怎么样？')">
+      <span class="emoji">💬</span>聊天
+    </button>
+    <button class="app" onclick="show('照片','这里收藏着美好瞬间。')">
+      <span class="emoji">🌷</span>照片
+    </button>
+    <button class="app" onclick="show('备忘录','记录你想记住的事情。')">
+      <span class="emoji">📝</span>备忘录
+    </button>
+    <button class="app" onclick="show('音乐','这里是你的私人歌单。')">
+      <span class="emoji">🎵</span>音乐
+    </button>
+    <button class="app" onclick="show('日历',new Date().toLocaleDateString('zh-CN'))">
+      <span class="emoji">📅</span>日历
+    </button>
+    <button class="app" onclick="show('设置','欢迎设置你的专属手机。')">
+      <span class="emoji">⚙️</span>设置
+    </button>
+  </div>
+
+  <div id="detail">
+    <button class="back" onclick="hide()">← 返回桌面</button>
+    <h2 id="heading"></h2>
+    <p id="content"></p>
+  </div>
+</div>
+
+<script>
+function show(title,content){
+  document.getElementById('heading').textContent=title;
+  document.getElementById('content').textContent=content;
+  document.getElementById('detail').style.display='block';
+}
+function hide(){
+  document.getElementById('detail').style.display='none';
+}
+const now=new Date();
+document.getElementById('clock').textContent=
+  now.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
+document.getElementById('today').textContent=
+  now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});
+</script>
+</body>
+</html>
