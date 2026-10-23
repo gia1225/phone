@@ -3,126 +3,266 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>我的专属手机</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>iPhone Home Screen</title>
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;
-  background:#e9e0e9;
-  color:#443b49;
+  margin:0;background:#111;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+  color:white;min-height:100vh;
+  display:flex;justify-content:center;align-items:center;
 }
 .phone{
-  max-width:400px;
-  min-height:100vh;
-  margin:auto;
-  padding:25px 22px;
-  background:linear-gradient(155deg,#e6d9ef,#f8e5df,#dcebe8);
+  width:min(100vw,393px);
+  height:min(852px,100dvh);
+  min-height:600px;
+  position:relative;overflow:hidden;
+  background:#a7b5c4;
+  border-radius:38px;
+  box-shadow:0 0 0 5px #292929;
+}
+.wallpaper{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,#7b8fa6,#c2c8cf 48%,#657b92);
+  background-size:cover;background-position:center;
 }
 .status{
-  display:flex;
-  justify-content:space-between;
-  font-weight:bold;
-  margin-bottom:40px;
+  position:absolute;top:13px;left:27px;right:27px;
+  height:28px;display:flex;
+  align-items:center;justify-content:space-between;
+  font-size:14px;font-weight:600;z-index:5;
 }
-h1{font-size:32px;margin:12px 0}
-.date{font-size:13px;color:#7b6e80}
-.widget{
-  background:#ffffffa8;
-  padding:18px;
-  border-radius:23px;
-  margin:24px 0;
-  line-height:1.6;
+.island{
+  position:absolute;top:9px;left:50%;
+  transform:translateX(-50%);
+  width:120px;height:35px;border-radius:24px;
+  background:#000;
 }
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
+.photo{
+  position:absolute;top:57px;left:17px;right:17px;
+  height:265px;border-radius:25px;overflow:hidden;
+  background:linear-gradient(145deg,#647e96,#d6d9d8 55%,#7d91a1);
+  background-size:cover;background-position:center;
+}
+.photo::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.08),transparent 35%,rgba(0,0,0,.12));
+  pointer-events:none;
+}
+.clock{
+  position:absolute;z-index:2;top:18px;left:0;right:0;
+  text-align:center;font-size:65px;font-weight:300;
+  letter-spacing:-3px;color:white;
+  text-shadow:0 1px 10px #0002;
+}
+.date{
+  position:absolute;z-index:2;top:91px;left:0;right:0;
+  text-align:center;font-size:14px;font-weight:600;
+  color:white;text-shadow:0 1px 5px #0005;
+}
+.photoButton{
+  position:absolute;z-index:3;right:10px;bottom:10px;
+  padding:7px 11px;border-radius:20px;
+  background:#0005;color:white;border:1px solid #ffffff66;
+  font-size:11px;
+}
+.apps{
+  position:absolute;left:19px;right:19px;
+  top:345px;bottom:135px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:83px;gap:7px 4px;
+  align-content:start;overflow:hidden;
 }
 .app{
-  background:#ffffffa8;
-  border:0;
-  border-radius:20px;
-  padding:17px 5px;
-  color:inherit;
-  font-size:14px;
-  cursor:pointer;
+  display:flex;align-items:center;flex-direction:column;
+  gap:5px;font-size:11px;text-shadow:0 1px 3px #0005;
+  min-width:0;
 }
-.emoji{display:block;font-size:31px;margin-bottom:10px}
-#detail{
-  display:none;
-  margin-top:22px;
-  padding:18px;
-  border-radius:22px;
-  background:#ffffffbb;
+.icon{
+  width:55px;height:55px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;box-shadow:0 2px 5px #0002;
+  font-size:29px;font-weight:600;
+  background:linear-gradient(145deg,#fff,#e9e9e9);
+  color:#333;
 }
-.back{
-  border:0;
-  background:#eee3ef;
-  padding:10px 15px;
-  border-radius:12px;
-  cursor:pointer;
+.icon img{width:100%;height:100%;object-fit:cover}
+.pages{
+  position:absolute;bottom:117px;left:0;right:0;
+  display:flex;justify-content:center;gap:7px;
+}
+.dot{width:6px;height:6px;border-radius:50%;background:#ffffff70}
+.dot.active{background:white}
+.dock{
+  position:absolute;left:12px;right:12px;bottom:20px;
+  height:83px;border-radius:27px;
+  background:#ffffff38;
+  border:1px solid #ffffff35;
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;align-items:center;justify-content:space-evenly;
+}
+.dock .icon{width:57px;height:57px}
+.homebar{
+  position:absolute;bottom:7px;left:50%;
+  transform:translateX(-50%);
+  width:120px;height:4px;border-radius:5px;
+  background:white;z-index:8;
+}
+#picker{display:none}
+@media(max-height:700px){
+  .photo{height:210px}
+  .apps{top:285px;bottom:120px;grid-auto-rows:73px}
+  .icon{width:48px;height:48px}
+  .dock .icon{width:50px;height:50px}
+  .dock{height:70px}
+  .pages{bottom:100px}
 }
 </style>
 </head>
 <body>
 <div class="phone">
+  <div class="wallpaper" id="wallpaper"></div>
   <div class="status">
-    <span id="clock">9:41</span>
-    <span>● ● ▰</span>
-  </div>
-  <div class="date">MY LITTLE WORLD</div>
-  <h1>Good day ☁️</h1>
-
-  <div class="widget">
-    <strong>今天也要开心。</strong>
-    <p>欢迎来到我的小小世界。</p>
-    <p id="today"></p>
+    <span id="smallTime">9:41</span>
+    <div class="island"></div>
+    <span>●●●  Wi-Fi  ▰</span>
   </div>
 
-  <div class="grid">
-    <button class="app" onclick="show('聊天','今天过得怎么样？')">
-      <span class="emoji">💬</span>聊天
-    </button>
-    <button class="app" onclick="show('照片','这里收藏着美好瞬间。')">
-      <span class="emoji">🌷</span>照片
-    </button>
-    <button class="app" onclick="show('备忘录','记录你想记住的事情。')">
-      <span class="emoji">📝</span>备忘录
-    </button>
-    <button class="app" onclick="show('音乐','这里是你的私人歌单。')">
-      <span class="emoji">🎵</span>音乐
-    </button>
-    <button class="app" onclick="show('日历',new Date().toLocaleDateString('zh-CN'))">
-      <span class="emoji">📅</span>日历
-    </button>
-    <button class="app" onclick="show('设置','欢迎设置你的专属手机。')">
-      <span class="emoji">⚙️</span>设置
-    </button>
+  <div class="photo" id="photo">
+    <div class="clock" id="clock">9:41</div>
+    <div class="date" id="date"></div>
+    <button class="photoButton" onclick="document.getElementById('picker').click()">更换照片</button>
   </div>
+  <input id="picker" type="file" accept="image/*">
 
-  <div id="detail">
-    <button class="back" onclick="hide()">← 返回桌面</button>
-    <h2 id="heading"></h2>
-    <p id="content"></p>
-  </div>
+  <div class="apps" id="apps"></div>
+  <div class="pages" id="pages"></div>
+
+  <div class="dock" id="dock"></div>
+  <div class="homebar"></div>
 </div>
-
 <script>
-function show(title,content){
-  document.getElementById('heading').textContent=title;
-  document.getElementById('content').textContent=content;
-  document.getElementById('detail').style.display='block';
+const applications = [
+  ["微信","💬","#16bd65"],
+  ["QQ","🐧","#fff"],
+  ["微博","🌐","#fff"],
+  ["小红书","书","#fff"],
+  ["豆瓣","豆","#fff"],
+  ["Instagram","◎","#d94e86"],
+  ["YouTube","▶","#fff"],
+  ["X","𝕏","#fff"],
+  ["Threads","＠","#fff"],
+  ["KakaoTalk","TALK","#ffe500"],
+  ["Safari","🧭","#fff"],
+  ["备忘录","📝","#fff"],
+  ["时钟","◷","#fff"],
+  ["天气","☀","#73b8e8"],
+  ["文件","📁","#fff"],
+  ["音乐","♫","#e34e72"]
+];
+
+const dockApps = [
+  ["电话","☎","#38c86b"],
+  ["信息","●","#35c96b"],
+  ["相册","🌈","#fff"],
+  ["相机","📷","#e5e5e5"]
+];
+
+let page = 0;
+const perPage = 12;
+
+function makeIcon(app){
+  const [name, symbol, color] = app;
+  const el = document.createElement("div");
+  el.className = "icon";
+  el.style.background = color;
+  el.setAttribute("aria-label", name);
+
+  const marks = {
+    "微信":"💬","QQ":"🐧","微博":"👁","小红书":"书",
+    "豆瓣":"豆","Instagram":"◎","YouTube":"▶",
+    "X":"𝕏","Threads":"＠","KakaoTalk":"TALK",
+    "Safari":"🧭","备忘录":"📝","时钟":"◷",
+    "天气":"☀","文件":"📁","音乐":"♫",
+    "电话":"☎","信息":"●","相册":"🌈","相机":"📷"
+  };
+  el.textContent = marks[name] || symbol;
+  if(name==="微信") el.style.color="#fff";
+  if(name==="YouTube") el.style.color="#ff0033";
+  if(name==="Safari") el.style.color="#1689e9";
+  if(name==="电话"||name==="信息") el.style.color="#fff";
+  return el;
 }
-function hide(){
-  document.getElementById('detail').style.display='none';
+
+function makeApp(app){
+  const wrap = document.createElement("div");
+  wrap.className = "app";
+  wrap.appendChild(makeIcon(app));
+  const label = document.createElement("span");
+  label.textContent = app[0];
+  wrap.appendChild(label);
+  return wrap;
 }
-const now=new Date();
-document.getElementById('clock').textContent=
-  now.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
-document.getElementById('today').textContent=
-  now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});
+
+function render(){
+  const area = document.getElementById("apps");
+  area.innerHTML = "";
+  applications.slice(page*perPage,(page+1)*perPage)
+    .forEach(app=>area.appendChild(makeApp(app)));
+
+  const pages = document.getElementById("pages");
+  pages.innerHTML = "";
+  const count = Math.ceil(applications.length/perPage);
+  for(let i=0;i<count;i++){
+    const dot=document.createElement("span");
+    dot.className="dot"+(i===page?" active":"");
+    dot.onclick=()=>{page=i;render()};
+    pages.appendChild(dot);
+  }
+}
+
+const dock=document.getElementById("dock");
+dockApps.forEach(app=>dock.appendChild(makeIcon(app)));
+render();
+
+function updateTime(){
+  const now=new Date();
+  const time=now.toLocaleTimeString("zh-CN",{
+    hour:"2-digit",minute:"2-digit",hour12:false
+  });
+  document.getElementById("clock").textContent=time;
+  document.getElementById("smallTime").textContent=time;
+  document.getElementById("date").textContent=
+    now.toLocaleDateString("zh-CN",{month:"long",day:"numeric",weekday:"long"});
+}
+updateTime();
+setInterval(updateTime,15000);
+
+document.getElementById("picker").addEventListener("change",function(){
+  const file=this.files&&this.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    document.getElementById("photo").style.backgroundImage=
+      `url("${reader.result}")`;
+  };
+  reader.readAsDataURL(file);
+});
+
+let startX=0;
+document.querySelector(".phone").addEventListener("touchstart",e=>{
+  startX=e.touches[0].clientX;
+},{passive:true});
+document.querySelector(".phone").addEventListener("touchend",e=>{
+  const dx=e.changedTouches[0].clientX-startX;
+  const max=Math.ceil(applications.length/perPage)-1;
+  if(Math.abs(dx)>65){
+    if(dx<0&&page<max)page++;
+    else if(dx>0&&page>0)page--;
+    render();
+  }
+},{passive:true});
 </script>
 </body>
 </html>
