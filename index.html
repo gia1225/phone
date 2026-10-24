@@ -481,5 +481,46 @@ renderGrid();
 tick();
 setInterval(tick,1000);
 </script>
+  
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD17inqy6azg4DkP5mfdsAFmjfeeUesb6I",
+    authDomain: "virtual-iphone-25576.firebaseapp.com",
+    projectId: "virtual-iphone-25576",
+    storageBucket: "virtual-iphone-25576.firebasestorage.app",
+    messagingSenderId: "146548605700",
+    appId: "1:146548605700:web:6663c6d750eef155b00651"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function loadChapter() {
+    try {
+      const chapterRef = doc(db, "gamecontent", "chapter1");
+      const chapterSnap = await getDoc(chapterRef);
+
+      if (chapterSnap.exists()) {
+        const data = chapterSnap.data();
+        console.log("第一章标题：", data.title);
+        console.log("第一章剧情：", data.content);
+      } else {
+        console.log("没有找到第一章文档");
+      }
+    } catch (error) {
+      console.error("读取剧情失败：", error);
+    }
+  }
+
+  loadChapter();
+</script>
+
 </body>
 </html>
