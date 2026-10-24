@@ -1,526 +1,327 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>My iPhone</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#26384b">
+<title>iPhone</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#111;font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:white}
-button,input,textarea{font:inherit}
-button{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.phone{position:relative;width:100%;max-width:430px;height:100dvh;min-height:600px;margin:auto;overflow:hidden;background:#536c88}
-.wallpaper{position:absolute;inset:0;background:linear-gradient(145deg,#d8d2ed,#799ab8 50%,#26364c);background-size:cover;background-position:center}
-.status{position:absolute;top:13px;left:24px;right:24px;display:flex;justify-content:space-between;font-size:13px;font-weight:600;z-index:3;pointer-events:none}
-.lock{position:absolute;inset:0;text-align:center;padding-top:75px;z-index:1}
-.lock-date{font-size:16px;text-shadow:0 1px 8px #333}
-.lock-time{font-size:82px;font-weight:300;letter-spacing:-4px;line-height:1.2;text-shadow:0 2px 10px #333}
-.lock-photo{position:absolute;top:42%;left:8%;width:84%;height:22%;border-radius:25px;background:linear-gradient(135deg,#d6d1ed,#89a6bf,#344761);background-size:cover;background-position:center}
-.lock-bottom{position:absolute;bottom:35px;left:0;right:0;font-size:13px;text-shadow:0 1px 6px #333}
-.passcode{display:none;position:absolute;inset:0;z-index:10;text-align:center;padding:75px 30px 25px;background:#26364cee;backdrop-filter:blur(22px)}
-.passcode h2{font-size:24px;font-weight:400}
-.pin-dots{font-size:24px;letter-spacing:8px;height:40px;margin:22px 0}
-.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:270px;margin:auto}
-.keypad button{height:60px;border:0;border-radius:50%;background:#ffffff30;color:white;font-size:23px}
-.keypad button:active{background:#ffffff70}
-.home{display:none;position:absolute;inset:0;z-index:2;padding:55px 17px 110px;overflow:hidden}
-.widget{height:150px;border-radius:24px;background:linear-gradient(135deg,#c9c7e5,#8baac0,#344761);background-size:cover;background-position:center;position:relative;overflow:hidden;margin-bottom:25px;border:1px solid #ffffff30}
-.widget:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0005,transparent)}
-.widget-text{position:absolute;z-index:1;left:17px;bottom:15px;text-shadow:0 1px 8px #222}
-.widget-time{font-size:36px;font-weight:300}
-.widget-date{font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 8px}
-.appicon{border:0;background:none;color:white;padding:0;text-align:center;text-shadow:0 1px 4px #333;min-width:0}
-.icon{width:55px;height:55px;border-radius:14px;background:linear-gradient(145deg,#f7f7fa,#c6ced9);color:#34445a;display:grid;place-items:center;margin:0 auto 6px;font-size:23px;font-weight:600}
-.appicon span{font-size:11px;white-space:nowrap}
-.dock{position:absolute;bottom:20px;left:14px;right:14px;padding:12px 8px;border-radius:26px;background:#ffffff38;backdrop-filter:blur(20px);display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.dock .icon{width:51px;height:51px}
-.dots{position:absolute;bottom:101px;left:0;right:0;text-align:center;font-size:13px;letter-spacing:7px;color:#fff}
-.ownerbar{display:none;position:absolute;top:43px;right:13px;z-index:4}
-.ownerbar button{border:0;border-radius:20px;padding:8px 12px;background:#fff;color:#222;font-size:12px}
-.appscreen,.editor{display:none;position:absolute;inset:0;z-index:6;overflow:auto;background:#f4f4f7;color:#18181b;padding:54px 17px 30px}
-.apphead{display:flex;align-items:center;gap:10px;margin-bottom:20px}
-.apphead button,.secondary{border:0;border-radius:18px;padding:9px 13px;background:#e5e5eb;color:#222}
-.apphead h2{font-size:22px;margin:0}
-.entry{background:white;border-radius:15px;padding:14px;margin:10px 0;overflow-wrap:anywhere;white-space:pre-wrap}
-textarea,.field{display:block;width:100%;border:1px solid #ddd;border-radius:12px;padding:12px;background:white;color:#222;margin:7px 0}
-textarea{min-height:80px}
-.primary{border:0;border-radius:12px;padding:12px 16px;background:#1677ff;color:white;margin:5px 0}
-.editor label{display:block;color:#666;font-size:13px;margin-top:13px}
-.notice{color:#777;font-size:12px;line-height:1.5}
-.albumgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
-.albumgrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px}
-#toast{display:none;position:absolute;z-index:20;top:55px;left:20%;width:60%;padding:10px;background:#222e;color:white;border-radius:15px;text-align:center}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;background:#151923;color:white}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+#phone{position:relative;width:100%;max-width:430px;height:100dvh;min-height:560px;margin:auto;overflow:hidden;background:#273b50}
+.screen{position:absolute;inset:0;display:none;overflow:hidden}
+.screen.active{display:block}
+.wallpaper{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 75% 23%,#b3c2ce 0%,transparent 34%),radial-gradient(ellipse at 20% 60%,#647e96 0%,transparent 42%),linear-gradient(155deg,#526a80,#293d54 65%,#141e2b)}
+.status{position:absolute;z-index:5;top:0;left:0;right:0;height:46px;padding:13px 26px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600}
+.status-right{display:flex;align-items:center;gap:6px;font-size:12px}
+.battery{position:relative;width:22px;height:11px;border:1.5px solid white;border-radius:3px}
+.battery:before{content:"";position:absolute;inset:2px;background:white;border-radius:1px}
+.battery:after{content:"";position:absolute;right:-4px;top:3px;width:2px;height:4px;background:white}
+#lock{text-align:center;touch-action:pan-y}
+.lock-time{position:absolute;top:14%;left:0;right:0;font-size:clamp(76px,21vw,96px);line-height:1.1;font-weight:300;letter-spacing:-4px;font-variant-numeric:tabular-nums;text-shadow:0 2px 12px #0002}
+.lock-date{position:absolute;top:calc(14% + 101px);left:0;right:0;font-size:19px;font-weight:500}
+.lock-bottom{position:absolute;bottom:0;left:0;right:0;height:180px}
+.lock-hint{position:absolute;bottom:103px;left:0;right:0;font-size:12px;color:#ffffffdd}
+.quick-actions{position:absolute;bottom:43px;left:32px;right:32px;display:flex;justify-content:space-between}
+.quick{width:48px;height:48px;border-radius:50%;background:#252b35aa;border:1px solid #ffffff25;color:white;font-size:22px}
+.home-bar{position:absolute;z-index:15;bottom:8px;left:calc(50% - 67px);width:134px;height:5px;border-radius:8px;background:white}
+.home-bar.dark{background:#222}
+#passcode{background:#f5f5f7;color:#202024;text-align:center}
+.pass-title{position:absolute;top:11%;left:0;right:0;font-size:21px;font-weight:600}
+.pass-subtitle{position:absolute;top:16%;left:0;right:0;font-size:14px;color:#777}
+.pass-dots{position:absolute;top:24%;left:0;right:0;display:flex;justify-content:center;gap:17px}
+.pass-dot{width:12px;height:12px;border-radius:50%;border:1px solid #85858a}
+.pass-dot.filled{background:#242428;border-color:#242428}
+.pass-error{position:absolute;top:29%;left:10px;right:10px;min-height:18px;color:#d22;font-size:13px}
+.keypad{position:absolute;top:35%;left:0;right:0;padding:0 32px;display:grid;grid-template-columns:repeat(3,1fr);row-gap:13px}
+.key{justify-self:center;width:min(21vw,72px);height:min(21vw,72px);max-width:72px;max-height:72px;border-radius:50%;background:#d9d9de;color:#242428;font-size:29px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.key:active{background:#b8b8c0}
+.key small{font-size:9px;letter-spacing:2px;margin-top:1px}
+.key.blank{visibility:hidden}
+.pass-bottom{position:absolute;bottom:48px;left:25px;right:25px;display:flex;justify-content:space-between}
+.text-btn{background:none;color:#087aff;padding:10px;font-size:14px}
+#home{padding:58px 19px 132px}
+.home-wall{background:linear-gradient(155deg,#8199aa,#41586b 50%,#263849)}
+#appGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:10px;row-gap:22px}
+.app{min-width:0;background:none;border:0;padding:0;color:white;text-align:center}
+.app-icon{width:min(16vw,60px);height:min(16vw,60px);max-width:60px;max-height:60px;margin:0 auto 6px;border-radius:14px;overflow:hidden;background:#ffffff18;display:flex;align-items:center;justify-content:center}
+.app-icon img{width:100%;height:100%;object-fit:cover}
+.app-label{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px #0008}
+.empty-app .app-icon{background:transparent;border:1px solid #ffffff0c}
+.empty-app .app-label{visibility:hidden}
+.dock{position:absolute;left:15px;right:15px;bottom:26px;height:90px;border-radius:26px;background:#ffffff35;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-evenly}
+.dock .app{width:25%}
+.dock .app-label{display:none}
+.dock .app-icon{width:min(13.5vw,55px);height:min(13.5vw,55px)}
+#appPage{background:#f5f5f7;color:#222}
+.app-nav{position:absolute;top:0;left:0;right:0;height:calc(55px + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);display:flex;align-items:center;background:#f5f5f7ee;border-bottom:1px solid #ddd;padding-left:12px}
+.app-back{background:none;color:#087aff;padding:10px;font-size:16px}
+#appTitle{position:absolute;left:85px;right:85px;text-align:center;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#appContent{position:absolute;top:calc(55px + env(safe-area-inset-top));bottom:20px;left:0;right:0;padding:20px;overflow:auto;white-space:pre-wrap;line-height:1.6}
+#appPage .home-bar,#editor .home-bar{background:#222}
+#editor{background:#f5f5f7;color:#222;overflow-y:auto;padding:calc(25px + env(safe-area-inset-top)) 20px 45px}
+#editor h2{font-size:24px}
+#editor label{display:block;margin:15px 0 6px;font-size:14px}
+#editor select,#editor textarea{width:100%;padding:12px;border:1px solid #ccc;border-radius:10px;background:white;color:#222;font-size:16px}
+#editor textarea{resize:vertical}
+.editor-btn{background:#087aff;color:white;border-radius:10px;padding:12px 16px;margin-top:12px}
+.editor-btn.secondary{background:#777}
+#firebaseStatus{font-size:12px;color:#555;overflow-wrap:anywhere}
+#toast{position:absolute;z-index:30;bottom:70px;left:20px;right:20px;padding:12px;background:#242424eF;color:white;border-radius:12px;text-align:center;display:none;font-size:14px}
+@media(min-width:500px){#phone{height:min(900px,100dvh)}}
 </style>
 </head>
 <body>
-<div class="phone" id="phone">
-<div class="wallpaper" id="wallpaper"></div>
-<div class="status"><span id="statusTime">09:41</span><span>●●● ▰</span></div>
+<div id="phone">
 
-<section class="lock" id="lock" onclick="showPin()">
-<div class="lock-date" id="lockDate"></div>
-<div class="lock-time" id="lockTime">09:41</div>
-<div class="lock-photo" id="lockPhoto"></div>
-<div class="lock-bottom">轻点屏幕以解锁</div>
+<section id="lock" class="screen active">
+  <div class="wallpaper"></div>
+  <div class="status"><span id="lockStatusTime">9:41</span><span class="status-right">●●●　Wi-Fi <span class="battery"></span></span></div>
+  <div class="lock-time" id="lockTime">9:41</div>
+  <div class="lock-date" id="lockDate"></div>
+  <div class="lock-bottom">
+    <div class="lock-hint">向上轻扫以解锁</div>
+    <div class="quick-actions">
+      <button class="quick" aria-label="手电筒">ϟ</button>
+      <button class="quick" id="cameraShortcut" aria-label="相机">◎</button>
+    </div>
+  </div>
+  <div class="home-bar" id="lockBar"></div>
 </section>
 
-<section class="passcode" id="passcode">
-<h2>输入密码</h2>
-<div class="pin-dots" id="pinDots">○ ○ ○ ○</div>
-<div class="keypad" id="keypad">
-<button type="button" data-key="1">1</button>
-<button type="button" data-key="2">2</button>
-<button type="button" data-key="3">3</button>
-<button type="button" data-key="4">4</button>
-<button type="button" data-key="5">5</button>
-<button type="button" data-key="6">6</button>
-<button type="button" data-key="7">7</button>
-<button type="button" data-key="8">8</button>
-<button type="button" data-key="9">9</button>
-<button type="button" data-key="clear">⌫</button>
-<button type="button" data-key="0">0</button>
-<button type="button" data-key="cancel">取消</button>
-</div>
+<section id="passcode" class="screen">
+  <div class="pass-title">输入密码</div>
+  <div class="pass-subtitle">请输入密码以解锁 iPhone</div>
+  <div class="pass-dots" id="passDots">
+    <span class="pass-dot"></span><span class="pass-dot"></span>
+    <span class="pass-dot"></span><span class="pass-dot"></span>
+  </div>
+  <div class="pass-error" id="passError"></div>
+  <div class="keypad" id="keypad">
+    <button class="key" data-num="1">1</button>
+    <button class="key" data-num="2">2<small>ABC</small></button>
+    <button class="key" data-num="3">3<small>DEF</small></button>
+    <button class="key" data-num="4">4<small>GHI</small></button>
+    <button class="key" data-num="5">5<small>JKL</small></button>
+    <button class="key" data-num="6">6<small>MNO</small></button>
+    <button class="key" data-num="7">7<small>PQRS</small></button>
+    <button class="key" data-num="8">8<small>TUV</small></button>
+    <button class="key" data-num="9">9<small>WXYZ</small></button>
+    <button class="key blank" aria-hidden="true"></button>
+    <button class="key" data-num="0">0</button>
+    <button class="key" id="deleteKey" style="background:transparent;font-size:14px">删除</button>
+  </div>
+  <div class="pass-bottom"><button class="text-btn" id="emergencyBtn">紧急情况</button><button class="text-btn" id="cancelPass">取消</button></div>
 </section>
 
-<section class="home" id="home">
-<div class="widget" id="widget">
-<div class="widget-text">
-<div class="widget-time" id="homeTime"></div>
-<div class="widget-date" id="homeDate"></div>
-</div>
-</div>
-<div class="grid" id="grid"></div>
-<div class="dots" id="dots">● ○</div>
-<div class="dock" id="dock"></div>
+<section id="home" class="screen">
+  <div class="wallpaper home-wall"></div>
+  <div class="status"><span id="homeTime">9:41</span><span class="status-right">●●●　Wi-Fi <span class="battery"></span></span></div>
+  <div id="appGrid"></div>
+  <div class="dock" id="dock"></div>
 </section>
 
-<div class="ownerbar" id="ownerbar">
-<button onclick="openEditor()">编辑手机</button>
-</div>
-
-<section class="appscreen" id="appscreen">
-<div class="apphead">
-<button onclick="closeApp()">‹ 返回</button>
-<h2 id="appTitle"></h2>
-</div>
-<div id="appbody"></div>
+<section id="appPage" class="screen">
+  <div class="app-nav"><button class="app-back" id="backHome">‹ 返回</button><div id="appTitle"></div></div>
+  <div id="appContent">此页面暂时为空。</div>
+  <div class="home-bar dark" id="appHomeBar"></div>
 </section>
 
-<section class="editor" id="editor">
-<div class="apphead">
-<button onclick="closeEditor()">‹ 返回</button>
-<h2>编辑手机</h2>
-</div>
-<p class="notice">内容保存在当前浏览器中。此版本还没有云端同步。</p>
-<label>锁屏壁纸图片网址</label><input class="field" id="eWallpaper">
-<label>照片面板图片网址</label><input class="field" id="eWidget">
-<label>聊天记录（每行一条）</label><textarea id="eChat"></textarea>
-<label>微信</label><textarea id="eWechat"></textarea>
-<label>Instagram</label><textarea id="eInstagram"></textarea>
-<label>X</label><textarea id="eX"></textarea>
-<label>Threads</label><textarea id="eThreads"></textarea>
-<label>小红书</label><textarea id="eRedbook"></textarea>
-<label>豆瓣</label><textarea id="eDouban"></textarea>
-<label>微博</label><textarea id="eWeibo"></textarea>
-<label>备忘录</label><textarea id="eNotes"></textarea>
-<label>短信</label><textarea id="eSMS"></textarea>
-<label>联系人</label><textarea id="eContacts"></textarea>
-<label>通话记录</label><textarea id="eCalls"></textarea>
-<label>相册图片网址（每行一个）</label><textarea id="eAlbum"></textarea>
-<label>音乐列表</label><textarea id="eMusic"></textarea>
-<button class="primary" onclick="saveEditor()">保存发布</button>
-<button class="secondary" onclick="closeEditor()">取消</button>
+<section id="editor" class="screen">
+  <h2>编辑系统</h2>
+  <p>在这里填写你自己的 App 页面内容。</p>
+  <label for="editApp">选择软件</label>
+  <select id="editApp"></select>
+  <label for="editText">页面内容</label>
+  <textarea id="editText" rows="8" placeholder="自行添加内容"></textarea>
+  <button class="editor-btn" id="saveContent">保存内容</button>
+  <button class="editor-btn secondary" id="exitEditor">退出编辑</button>
+  <p id="firebaseStatus">本机保存可用；Firebase 需单独配置。</p>
+  <div class="home-bar dark"></div>
 </section>
+
 <div id="toast"></div>
 </div>
 
 <script>
-const defaults={
-wallpaper:"",widget:"",
-chat:"周安信：在吗？\n朋友：在。",
-wechat:"这里是微信内容。",
-instagram:"这里是 Instagram 动态。",
-x:"这里是 X 的帖子。",
-threads:"这里是 Threads 动态。",
-redbook:"这里是小红书笔记。",
-douban:"这里是豆瓣动态。",
-weibo:"这里是微博内容。",
-notes:"备忘录内容",
-sms:"暂无短信",
-contacts:"暂无联系人",
-calls:"暂无通话记录",
-album:"",
-music:"暂无歌曲"
-};
+/* 密码 */
+const UNLOCK_PASSWORD = "0000";
+const EDITOR_PASSWORD = "1225";
 
-let data;
-try{
-data={...defaults,...JSON.parse(localStorage.getItem("vitroData")||"{}")};
-}catch(e){
-data={...defaults};
-}
-
-let pin="",mode="guest",page=0,startX=0;
-
-const apps=[
-["Safari","safari","◉"],
-["备忘录","notes","▤"],
-["日历","calendar","31"],
-["设置","settings","⚙"],
-["微信","wechat","微"],
-["Instagram","instagram","◎"],
-["X","x","X"],
-["YouTube","youtube","▶"],
-["Threads","threads","@"],
-["小红书","redbook","书"],
-["豆瓣","douban","豆"],
-["微博","weibo","微"],
-["QQ","qq","Q"],
-["KakaoTalk","kakao","K"],
-["音乐","music","♫"],
-["聊天","chat","▰"]
+/* 保留已上传的 12 张原图；将文件放入仓库 icons 文件夹 */
+const apps = [
+ {name:"微博",image:"IMG_2091.png"},
+ {name:"微信",image:"IMG_2092.png"},
+ {name:"相机",image:"IMG_2093.png"},
+ {name:"小红书",image:"IMG_2094.png"},
+ {name:"信息",image:"IMG_2095.png"},
+ {name:"时钟",image:"IMG_2096.png"},
+ {name:"音乐",image:"IMG_2097.png"},
+ {name:"日历",image:"IMG_2098.png"},
+ {name:"Instagram",image:"IMG_2099.jpeg"},
+ {name:"KakaoTalk",image:"IMG_2100.png"},
+ {name:"照片",image:"IMG_2101.png"},
+ {name:"QQ",image:"IMG_2102.png"},
+ {name:"空白 App 13",image:""},
+ {name:"空白 App 14",image:""},
+ {name:"空白 App 15",image:""},
+ {name:"空白 App 16",image:""},
+ {name:"空白 App 17",image:""},
+ {name:"空白 App 18",image:""},
+ {name:"空白 App 19",image:""},
+ {name:"空白 App 20",image:""},
+ {name:"空白 App 21",image:""},
+ {name:"空白 App 22",image:""}
 ];
 
-const dockApps=[
-["电话","phone","☎"],
-["短信","sms","▰"],
-["照片","photos","✿"],
-["相机","camera","◉"]
-];
+const $ = id => document.getElementById(id);
+let entered = "";
+let editorUnlocked = false;
+let currentApp = -1;
+let touchStartY = 0;
+const contentKey = "iphoneAppContent_v2";
 
-function iconHTML(a){
-return `<button class="appicon" onclick="openApp('${a[1]}')"><div class="icon">${a[2]}</div><span>${a[0]}</span></button>`;
+function showScreen(id){
+ document.querySelectorAll(".screen").forEach(el=>el.classList.remove("active"));
+ $(id).classList.add("active");
 }
-
-function renderGrid(){
-document.getElementById("grid").innerHTML=
-apps.slice(page*8,page*8+8).map(iconHTML).join("");
-document.getElementById("dots").textContent=page===0?"● ○":"○ ●";
-document.getElementById("dock").innerHTML=dockApps.map(iconHTML).join("");
+function toast(message){
+ $("toast").textContent=message;
+ $("toast").style.display="block";
+ clearTimeout(toast.timer);
+ toast.timer=setTimeout(()=>$("toast").style.display="none",2000);
 }
-
-function tick(){
-const d=new Date();
-const t=d.toLocaleTimeString("zh-CN",{
-hour:"2-digit",minute:"2-digit",hour12:false
-});
-const date=d.toLocaleDateString("zh-CN",{
-month:"long",day:"numeric",weekday:"long"
-});
-["statusTime","lockTime","homeTime"].forEach(id=>{
-document.getElementById(id).textContent=t;
-});
-["lockDate","homeDate"].forEach(id=>{
-document.getElementById(id).textContent=date;
-});
+function updateClock(){
+ const now=new Date();
+ const time=now.toLocaleTimeString("zh-CN",{hour:"2-digit",minute:"2-digit",hour12:false});
+ $("lockTime").textContent=time;
+ $("lockStatusTime").textContent=time;
+ $("homeTime").textContent=time;
+ $("lockDate").textContent=now.toLocaleDateString("zh-CN",{month:"long",day:"numeric",weekday:"long"});
 }
+updateClock();
+setInterval(updateClock,15000);
 
-function applyImages(){
-document.getElementById("wallpaper").style.backgroundImage=
-data.wallpaper?`url("${data.wallpaper}")`:
-"linear-gradient(145deg,#d8d2ed,#799ab8 50%,#26364c)";
-const photo=data.widget?`url("${data.widget}")`:
-"linear-gradient(135deg,#d6d1ed,#89a6bf,#344761)";
-document.getElementById("lockPhoto").style.backgroundImage=photo;
-document.getElementById("widget").style.backgroundImage=photo;
+function showPasscode(){
+ entered="";
+ updateDots();
+ $("passError").textContent="";
+ showScreen("passcode");
 }
-
-function toast(s){
-const t=document.getElementById("toast");
-t.textContent=s;
-t.style.display="block";
-setTimeout(()=>t.style.display="none",1800);
+function updateDots(){
+ document.querySelectorAll(".pass-dot").forEach((dot,i)=>dot.classList.toggle("filled",i<entered.length));
 }
-
-function showPin(){
-document.getElementById("lock").style.display="none";
-document.getElementById("passcode").style.display="block";
-pin="";
-updatePin();
-}
-
-function updatePin(){
-document.getElementById("pinDots").textContent=
-Array.from({length:4},(_,i)=>i<pin.length?"●":"○").join(" ");
-}
-
-function key(k){
-if(k==="cancel"){
-document.getElementById("passcode").style.display="none";
-document.getElementById("lock").style.display="block";
-pin="";
-updatePin();
-return;
-}
-
-if(k==="clear"){
-pin=pin.slice(0,-1);
-updatePin();
-return;
-}
-
-if(!/^\d$/.test(k)||pin.length>=4)return;
-
-pin+=k;
-updatePin();
-
-if(pin.length===4){
-if(pin==="1225"){
-mode="owner";
-enterHome();
-}else if(pin==="0000"){
-mode="guest";
-enterHome();
-}else{
-toast("密码错误，请重试");
-setTimeout(()=>{
-pin="";
-updatePin();
-},500);
-}
-}
-}
-
-/* 密码键盘统一监听，避免每个按钮重复绑定事件 */
-document.getElementById("keypad").addEventListener("click",function(event){
-const button=event.target.closest("button[data-key]");
-if(!button)return;
-key(button.dataset.key);
-});
-
-function enterHome(){
-document.getElementById("passcode").style.display="none";
-document.getElementById("lock").style.display="none";
-document.getElementById("home").style.display="block";
-document.getElementById("ownerbar").style.display=
-mode==="owner"?"block":"none";
-renderGrid();
-}
-
-function escapeHTML(s){
-return String(s||"").replace(/[&<>"']/g,c=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-}[c]));
-}
-
-function entries(s){
-const a=String(s||"").split("\n").filter(x=>x.trim());
-return a.length
-?a.map(x=>`<div class="entry">${escapeHTML(x)}</div>`).join("")
-:'<div class="entry">暂无内容</div>';
-}
-
-function openApp(id){
-document.getElementById("home").style.display="none";
-document.getElementById("appscreen").style.display="block";
-
-const a=[...apps,...dockApps].find(x=>x[1]===id);
-document.getElementById("appTitle").textContent=a?a[0]:id;
-const body=document.getElementById("appbody");
-
-const fields={
-chat:"chat",wechat:"wechat",instagram:"instagram",x:"x",
-threads:"threads",redbook:"redbook",douban:"douban",
-weibo:"weibo",notes:"notes",sms:"sms",contacts:"contacts",
-music:"music",calls:"calls"
-};
-
-if(fields[id]){
-body.innerHTML=entries(data[fields[id]]);
-if(id==="notes"&&mode==="owner"){
-body.innerHTML+=`<textarea id="quickNote">${escapeHTML(data.notes)}</textarea>
-<button class="primary" onclick="saveNote()">保存备忘录</button>`;
-}
-return;
-}
-
-if(id==="photos"){
-const imgs=data.album.split("\n").filter(x=>x.trim());
-body.innerHTML=imgs.length
-?`<div class="albumgrid">${imgs.map(u=>`<img src="${escapeHTML(u)}">`).join("")}</div>`
-:'<div class="entry">相册暂无照片。主人可以在编辑手机里添加图片网址。</div>';
-return;
-}
-
-if(id==="phone"){
-body.innerHTML="<h3>联系人</h3>"+entries(data.contacts)+
-"<h3>最近通话</h3>"+entries(data.calls);
-return;
-}
-
-if(id==="camera"){
-body.innerHTML='<div class="entry"><h3>相机</h3><p>模拟相机</p><button class="primary" onclick="toast(\'拍照完成（模拟）\')">拍照</button></div>';
-return;
-}
-
-if(id==="calendar"){
-body.innerHTML=`<div class="entry"><h3>${new Date().toLocaleDateString("zh-CN",{year:"numeric",month:"long"})}</h3>${new Date().toLocaleDateString("zh-CN",{weekday:"long",month:"long",day:"numeric"})}</div>`;
-return;
-}
-
-if(id==="settings"){
-body.innerHTML=`<div class="entry">当前模式：${mode==="owner"?"主人编辑模式":"访客浏览模式"}</div>
-<button class="secondary" onclick="switchUser()">切换用户</button>
-${mode==="owner"?'<button class="primary" onclick="closeApp();openEditor()">编辑手机</button>':""}`;
-return;
-}
-
-if(id==="safari"){
-body.innerHTML='<div class="entry"><input class="field" id="weburl" placeholder="输入网址"><button class="primary" onclick="goWeb()">打开网页</button></div>';
-return;
-}
-
-if(id==="youtube"){
-body.innerHTML='<div class="entry"><button class="primary" onclick="window.open(\'https://www.youtube.com\',\'_blank\')">打开 YouTube</button></div>';
-return;
-}
-
-if(id==="qq"||id==="kakao"){
-body.innerHTML=entries(data.chat);
-return;
-}
-
-body.innerHTML='<div class="entry">应用模拟页面</div>';
-}
-
-function closeApp(){
-document.getElementById("appscreen").style.display="none";
-document.getElementById("home").style.display="block";
-}
-
-function switchUser(){
-closeApp();
-document.getElementById("home").style.display="none";
-document.getElementById("ownerbar").style.display="none";
-showPin();
-}
-
-function goWeb(){
-let u=document.getElementById("weburl").value.trim();
-if(!u)return;
-if(!/^https?:\/\//i.test(u))u="https://"+u;
-window.open(u,"_blank");
-}
-
-function saveNote(){
-data.notes=document.getElementById("quickNote").value;
-localStorage.setItem("vitroData",JSON.stringify(data));
-toast("已保存");
-}
-
-function openEditor(){
-if(mode!=="owner"){
-toast("访客模式不能编辑");
-return;
-}
-document.getElementById("home").style.display="none";
-document.getElementById("appscreen").style.display="none";
-document.getElementById("editor").style.display="block";
-
-const map={
-Wallpaper:"wallpaper",Widget:"widget",Chat:"chat",Wechat:"wechat",
-Instagram:"instagram",X:"x",Threads:"threads",Redbook:"redbook",
-Douban:"douban",Weibo:"weibo",Notes:"notes",SMS:"sms",
-Contacts:"contacts",Calls:"calls",Album:"album",Music:"music"
-};
-
-for(const [s,k] of Object.entries(map)){
-const el=document.getElementById("e"+s);
-if(el)el.value=data[k]||"";
-}
-}
-
-function closeEditor(){
-document.getElementById("editor").style.display="none";
-document.getElementById("home").style.display="block";
-}
-
-function saveEditor(){
-const map={
-Wallpaper:"wallpaper",Widget:"widget",Chat:"chat",Wechat:"wechat",
-Instagram:"instagram",X:"x",Threads:"threads",Redbook:"redbook",
-Douban:"douban",Weibo:"weibo",Notes:"notes",SMS:"sms",
-Contacts:"contacts",Calls:"calls",Album:"album",Music:"music"
-};
-
-for(const [s,k] of Object.entries(map)){
-const el=document.getElementById("e"+s);
-if(el)data[k]=el.value.trim();
-}
-
-try{
-localStorage.setItem("vitroData",JSON.stringify(data));
-}catch(e){
-toast("保存失败，图片网址或内容可能过多");
-return;
-}
-
-applyImages();
-document.getElementById("editor").style.display="none";
-document.getElementById("home").style.display="block";
-toast("保存成功");
-}
-
-document.getElementById("phone").addEventListener("touchstart",e=>{
-startX=e.touches[0].clientX;
-},{passive:true});
-
-document.getElementById("phone").addEventListener("touchend",e=>{
-const dx=e.changedTouches[0].clientX-startX;
-if(document.getElementById("home").style.display==="block"&&Math.abs(dx)>70){
-page=dx<0?1:0;
-renderGrid();
-}
-},{passive:true});
-
-applyImages();
-renderGrid();
-tick();
-setInterval(tick,1000);
-</script>
-  
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-  import {
-    getFirestore,
-    doc,
-    getDoc
-  } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyD17inqy6azg4DkP5mfdsAFmjfeeUesb6I",
-    authDomain: "virtual-iphone-25576.firebaseapp.com",
-    projectId: "virtual-iphone-25576",
-    storageBucket: "virtual-iphone-25576.firebasestorage.app",
-    messagingSenderId: "146548605700",
-    appId: "1:146548605700:web:6663c6d750eef155b00651"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  async function loadChapter() {
-    try {
-      const chapterRef = doc(db, "gamecontent", "chapter1");
-      const chapterSnap = await getDoc(chapterRef);
-
-      if (chapterSnap.exists()) {
-        const data = chapterSnap.data();
-        console.log("第一章标题：", data.title);
-        console.log("第一章剧情：", data.content);
-      } else {
-        console.log("没有找到第一章文档");
-      }
-    } catch (error) {
-      console.error("读取剧情失败：", error);
-    }
+function enterDigit(digit){
+ if(entered.length>=4)return;
+ entered+=digit;
+ updateDots();
+ if(entered.length===4){
+  if(entered===UNLOCK_PASSWORD){
+   entered="";
+   showScreen("home");
+  }else if(entered===EDITOR_PASSWORD){
+   entered="";
+   editorUnlocked=true;
+   $("editApp").value=apps[0].name;
+   loadEditorText();
+   showScreen("editor");
+  }else{
+   $("passError").textContent="密码不正确，请重试";
+   setTimeout(()=>{entered="";updateDots();$("passError").textContent="";},650);
   }
+ }
+}
+$("keypad").addEventListener("click",e=>{
+ const btn=e.target.closest("button[data-num]");
+ if(btn)enterDigit(btn.dataset.num);
+});
+$("deleteKey").addEventListener("click",()=>{
+ entered=entered.slice(0,-1);
+ updateDots();
+ $("passError").textContent="";
+});
+$("cancelPass").addEventListener("click",()=>{entered="";showScreen("lock")});
+$("emergencyBtn").addEventListener("click",()=>toast("紧急功能未启用"));
 
-  loadChapter();
+/* 上滑解锁 */
+$("lock").addEventListener("touchstart",e=>{touchStartY=e.touches[0].clientY},{passive:true});
+$("lock").addEventListener("touchend",e=>{
+ const endY=e.changedTouches[0].clientY;
+ if(touchStartY-endY>35)showPasscode();
+},{passive:true});
+$("lock").addEventListener("click",e=>{
+ if(e.target.closest(".quick"))return;
+});
+$("lockBar").addEventListener("click",showPasscode);
+$("lock").addEventListener("dblclick",showPasscode);
+
+/* App 图标 */
+function makeApp(app,index){
+ const btn=document.createElement("button");
+ btn.className="app"+(!app.image?" empty-app":"");
+ btn.type="button";
+ const icon=document.createElement("div");
+ icon.className="app-icon";
+ if(app.image){
+  const img=document.createElement("img");
+  img.src="icons/"+app.image;
+  img.alt=app.name;
+  img.onerror=()=>{img.remove();icon.style.background="transparent";};
+  icon.appendChild(img);
+ }
+ const label=document.createElement("div");
+ label.className="app-label";
+ label.textContent=app.image?app.name:"";
+ btn.append(icon,label);
+ btn.addEventListener("click",()=>{
+  if(!app.image){toast("这个位置暂时留空");return;}
+  openApp(index);
+ });
+ return btn;
+}
+apps.forEach((app,index)=>{
+ if(index<20)$("appGrid").appendChild(makeApp(app,index));
+});
+[1,2,10,4].forEach(index=>$("dock").appendChild(makeApp(apps[index],index)));
+
+function readContent(){
+ try{return JSON.parse(localStorage.getItem(contentKey)||"{}")}
+ catch{return {}}
+}
+function openApp(index){
+ currentApp=index;
+ $("appTitle").textContent=apps[index].name;
+ $("appContent").textContent=readContent()[apps[index].name]||"此页面暂时为空。";
+ showScreen("appPage");
+}
+$("backHome").addEventListener("click",()=>showScreen("home"));
+$("appHomeBar").addEventListener("click",()=>showScreen("home"));
+
+apps.forEach(app=>{
+ const option=document.createElement("option");
+ option.value=app.name;
+ option.textContent=app.name;
+ $("editApp").appendChild(option);
+});
+function loadEditorText(){
+ $("editText").value=readContent()[$("editApp").value]||"";
+}
+$("editApp").addEventListener("change",loadEditorText);
+$("saveContent").addEventListener("click",()=>{
+ if(!editorUnlocked){toast("请重新输入编辑密码");showScreen("passcode");return}
+ const data=readContent();
+ data[$("editApp").value]=$("editText").value;
+ localStorage.setItem(contentKey,JSON.stringify(data));
+ $("firebaseStatus").textContent="内容已保存在当前浏览器。Firebase 尚未连接。";
+ toast("保存成功");
+});
+$("exitEditor").addEventListener("click",()=>{
+ editorUnlocked=false;
+ showScreen("home");
+});
 </script>
-
 </body>
 </html>
